@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SWINGNOMAD — Golf Lifestyle Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f9f8f6;
+      --cream: #f2ede6;
+      --green: #2d5a27;
+      --green-light: #4a7c42;
+      --green-pale: #e8f0e6;
+      --black: #1a1a1a;
+      --gray: #6b6b6b;
+      --gray-light: #d4d4d4;
+      --gold: #c9a84c;
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--off-white); }
+    ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 14px 60px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--black);
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--green);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cart {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-cart:hover {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff 0%, #f2ede6 50%, #e8f0e6 100%);
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      font-family: var(--font-serif);
+      font-size: 260px;
+      font-weight: 700;
+      color: rgba(45,90,39,0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-decoration {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-deco-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(45,90,39,0.07) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+    }
+
+    .hero-deco-2 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+      bottom: 100px;
+      left: -50px;
+    }
+
+    .hero-content {
+      text-align: center;
+      z-index: 2;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 1.05;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .hero-title .accent {
+      color: var(--green);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--gray);
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green);
+      color: white;
+      text-decoration: none;
+      padding: 18px 42px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(45,90,39,0.25);
+    }
+
+    .hero-cta:hover {
+      background: var(--green-light);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(45,90,39,0.3);
+    }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--green);
+      text-decoration: none;
+      padding: 18px 32px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-left: 12px;
+      transition: all 0.3s;
+    }
+
+    .hero-cta-secondary:hover { opacity: 0.7; }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--green), transparent);
+    }
+
+    /* ===== STATS STRIP ===== */
+    .stats-strip {
+      background: var(--green);
+      padding: 28px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    .stat-item {
+      text-align: center;
+      color: white;
+    }
+
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      display: block;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    section {
+      padding: 100px 60px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ===== PRODUCTS ===== */
+    #products {
+      background: var(--off-white);
+    }
+
+    .products-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .products-header .section-desc {
+      margin: 0 auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    .product-image-wrap {
+      position: relative;
+      height: 360px;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .product-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .product-card:hover .product-image-wrap img {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--green);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    .product-badge.gold {
+      background: var(--gold);
+    }
+
+    .product-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .product-card:hover .product-overlay { opacity: 1; }
+
+    .product-quick-add {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: white;
+      color: var(--green);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .product-card:hover .product-quick-add {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .product-info {
+      padding: 28px 32px 32px;
+    }
+
+    .product-category {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .product-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .product-price .won {
+      font-size: 16px;
+      font-family: var(--font-sans);
+      color: var(--gray);
+      margin-right: 2px;
+    }
+
+    .product-price .original {
+      font-size: 14px;
+      color: var(--gray-light);
+      text-decoration: line-through;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      margin-left: 8px;
+    }
+
+    .btn-add-cart {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-add-cart:hover {
+      background: var(--green-light);
+      transform: scale(1.03);
+    }
+
+    /* ===== ABOUT ===== */
+    #about {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .about-image-side {
+      flex: 1;
+      position: relative;
+    }
+
+    .about-img-main {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .about-img-accent {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 6px solid white;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    .about-tag {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 14px 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .about-tag-num {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+      display: block;
+    }
+
+    .about-tag-text {
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 1px;
+    }
+
+    .about-text-side {
+      flex: 1;
+    }
+
+    .about-features {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--green-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .feature-text p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee-section {
+      background: var(--cream);
+      padding: 28px 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 40px;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--green);
+      opacity: 0.6;
+    }
+
+    .marquee-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===== INSTAGRAM / FEED ===== */
+    #feed {
+      background: var(--off-white);
+      text-align: center;
+    }
+
+    .feed-header {
+      margin-bottom: 50px;
+    }
+
+    .feed-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+
+    .feed-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 16px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .feed-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .feed-item:hover img { transform: scale(1.08); }
+
+    .feed-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(45,90,39,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 16px;
+    }
+
+    .feed-item:hover .feed-item-overlay { opacity: 1; }
+
+    .feed-overlay-icon {
+      color: white;
+      font-size: 28px;
+    }
+
+    .btn-instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid var(--green);
+      color: var(--green);
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .btn-instagram:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    /* ===== NEWSLETTER ===== */
+    #newsletter {
+      background: var(--green);
+      text-align: center;
+      padding: 100px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter-bg {
+      position: absolute;
+      font-family: var(--font-serif);
+      font-size: 200px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    #newsletter .section-label {
+      color: var(--gold);
+    }
+
+    #newsletter .section-title {
+      color: white;
+      max-width: 600px;
+      margin: 0 auto 16px;
+    }
+
+    #newsletter .section-desc {
+      color: rgba(255,255,255,0.7);
+      margin: 0 auto 40px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
+      gap: 0;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 50px 0 0 50px;
+      font-size: 14px;
+      outline: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-right: none;
+    }
+
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.5); }
+
+    .newsletter-btn {
+      padding: 16px 28px;
+      background: var(--gold);
+      color: white;
+      border: none;
+      border-radius: 0 50px 50px 0;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .newsletter-btn:hover { background: #b8943e; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--black);
+      color: white;
+      padding: 60px 60px 36px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      gap: 40px;
+    }
+
+    .footer-brand .nav-logo {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-links-group h5 {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .footer-links-group ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links-group ul li a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .footer-links-group ul li a:hover { color: var(--gold); }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: white;
+    }
+
+    .social-btn:hover {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ===== CART SIDEBAR ===== */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 420px;
+      height: 100vh;
+      background: white;
+      z-index: 2001;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -10px 0 60px rgba(0,0,0,0.15);
+    }
+
+    .cart-sidebar.open { right: 0; }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .cart-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .cart-close {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--off-white);
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .cart-close:hover { background: var(--gray-light); }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 32px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray);
+    }
+
+    .cart-empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .cart-empty p { font-size: 15px; }
+
+    .cart-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--off-white);
+    }
+
+    .cart-item-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: var(--cream);
+    }
+
+    .cart-item-info { flex: 1; }
+
+    .cart-item-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--gray-light);
+      background: white;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .qty-btn:hover { border-color: var(--green); color: var(--green); }
+
+    .cart-item-remove {
+      color: var(--gray-light);
+      cursor: pointer;
+      font-size: 18px;
+      background: none;
+      border: none;
+      align-self: flex-start;
+      transition: color 0.2s;
+    }
+
+    .cart-item-remove:hover { color: #e74c3c; }
+
+    .cart-footer {
+      padding: 24px 32px;
+      border-top: 1px solid var(--gray-light);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .cart-total-label {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    .cart-total-price {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .btn-checkout {
+      width: 100%;
+      padding: 18px;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-checkout:hover {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--black);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .stats-strip { gap: 40px; padding: 24px; flex-wrap: wrap; }
+      .products-grid { grid-template-columns: 1fr; }
+      #about { flex-direction: column; padding: 70px 24px; }
+      .about-img-accent { display: none; }
+      .feed-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { flex-direction: column; }
+      .cart-sidebar { width: 100%; right: -100%; }
+      .hero-bg-text { font-size: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== CART OVERLAY ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- ===== CART SIDEBAR ===== -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2 class="cart-title">🛒 Cart</h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">⛳</div>
+      <p>카트가 비어있어요.<br/>상품을 담아보세요!</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">합계</span>
+      <span class="cart-total-price" id="cartTotal">₩0</span>
+    </div>
+    <button class="btn-checkout" onclick="checkout()">구매하기 →</button>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">SWING<span>NOMAD</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#feed">Feed</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+  </ul>
+  <button class="nav-cart" onclick="toggleCart()">
+    🛒 <span id="cartCount">0</span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg-text">GOLF</div>
+  <div class="hero-decoration hero-deco-1"></div>
+  <div class="hero-decoration hero-deco-2"></div>
+
+  <div class="hero-content">
+    <span class="hero-badge">⛳ Golf Lifestyle Brand</span>
+    <h1 class="hero-title">
+      Play <span class="accent">Free,</span><br/>
+      Swing <span class="accent">Wild</span>
+    </h1>
+    <p class="hero-subtitle">Swingnomad Official Store</p>
+    <p class="hero-desc">
+      골프를 사랑하는 노마드들을 위한<br/>
+      라이프스타일 굿즈 컬렉션
+    </p>
+    <div>
+      <a href="#products" class="hero-cta">Shop Now ↓</a>
+      <a href="https://instagram.com/swingnomad" class="hero-cta-secondary" target="_blank">
+        📸 @swingnomad
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ===== STATS STRIP ===== -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <span class="stat-num">10K+</span>
+    <span class="stat-label">Followers</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">200+</span>
+    <span class="stat-label">Golf Courses</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2</span>
+    <span class="stat-label">Products</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Golf Vibes</span>
+  </div>
+</div>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item"><span class="marquee-dot"></span>Golf Map</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Golf Passport</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Swing Nomad</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Play Free</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Golf Lifestyle</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Course Explorer</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Golf Map</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Golf Passport</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Swing Nomad</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Play Free</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Golf Lifestyle</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Course Explorer</span>
+  </div>
+</div>
+
+<!-- ===== PRODUCTS ===== -->
+<section id="products">
+  <div class="products-header reveal">
+    <span class="section-label">Our Products</span>
+    <h2 class="section-title">골프 라이프를 더 특별하게</h2>
+    <p class="section-desc">스윙노마드가 직접 기획한 골프 라이프스타일 굿즈. 코스를 누비는 노마드를 위한 아이템.</p>
+  </div>
+
+  <div class="products-grid">
+    <!-- Product 1: Golf Map -->
+    <div class="product-card reveal">
+      <div class="product-image-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=800&q=80"
+          alt="Golf Map"
+          loading="lazy"
+        />
+        <div class="product-badge">Best Seller</div>
+        <div class="product-overlay"></div>
+        <button class="product-quick-add" onclick="addToCart('Golf Map', 29000, this)">
+          + 빠른 담기
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Map Series</p>
+        <h3 class="product-name">Golf Map</h3>
+        <p class="product-desc">
+          전국 골프장을 한눈에 담은 스윙노마드 에디션 골프 지도. 
+          벽에 걸어도, 코스 계획에도 완벽한 감성 아이템.
+        </p>
+        <div class="product-footer">
+          <div class="product-price">
+            <span class="won">₩</span>29,000
+            <span class="original">₩35,000</span>
+          </div>
+          <button class="btn-add-cart" onclick="addToCart('Golf Map', 29000, this)">
+            🛒 담기
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2: Golf Passport -->
+    <div class="product-card reveal">
+      <div class="product-image-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=800&q=80"
+          alt="Golf Passport"
+          loading="lazy"
+        />
+        <div class="product-badge gold">New Arrival</div>
+        <div class="product-overlay"></div>
+        <button class="product-quick-add" onclick="addToCart('Golf Passport', 19000, this)">
+          + 빠른 담기
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Passport Series</p>
+        <h3 class="product-name">Golf Passport</h3>
+        <p class="product-desc">
+          방문한 골프장을 스탬프로 기록하는 나만의 골프 여권. 
+          코스마다 쌓이는 추억을 감성 있게 보관하세요.
+        </p>
+        <div class="product-footer">
+          <div class="product-price">
+            <span class="won">₩</span>19,000
+          </div>
+          <button class="btn-add-cart" onclick="addToCart('Golf Passport', 19000, this)">
+            🛒 담기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about-wrap" style="background: var(--white); padding: 0;">
+  <div id="about">
+    <div class="about-image-side reveal">
+      <img
+        class="about-img-main"
+        src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?w=800&q=80"
+        alt="Swingnomad"
+      />
+      <div class="about-tag">
+        <span class="about-tag-num">@swingnomad</span>
+        <span class="about-tag-text">Golf Reels Creator</span>
+      </div>
+      <img
+        class="about-img-accent"
+        src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=400&q=80"
+        alt="Golf"
+      />
+    </div>
+
+    <div class="about-text-side reveal">
+      <span class="section-label">About Swingnomad</span>
+      <h2 class="section-title">골프를 즐기는<br/>모든 노마드를 위해</h2>
+      <p class="section-desc">
+        스윙노마드는 골프 릴스 크리에이터이자 골프 라이프스타일 브랜드입니다. 
+        필드 위에서 느끼는 자유로움을 더 많은 사람들과 나누고 싶어 만들었어요.
+      </p>
+
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="feature-icon">🗺️</div>
+          <div class="feature-text">
+            <h4>직접 기획한 골프 굿즈</h4>
+            <p>크리에이터가 필드에서 직접 느낀 감성을 담아 기획한 아이템들</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="feature-icon">⛳</div>
+          <div class="feature-text">
+            <h4>골프 라이프스타일 콘텐츠</h4>
+            <p>인스타그램 @swingnomad에서 매주 업로드되는 골프 릴스 콘텐츠</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="feature-icon">🏌️</div>
+          <div class="feature-text">
+            <h4>코스 탐험가 정신</h4>
+            <p>전국의 골프장을 누비며 발견한 인사이트와 감성을 공유합니다</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTAGRAM FEED ===== -->
+<section id="feed">
+  <div class="feed-header reveal">
+    <span class="section-label">Instagram</span>
+    <h2 class="section-title">@swingnomad</h2>
+    <p class="section-desc" style="margin: 0 auto;">골프 릴스부터 코스 브이로그까지, 필드의 모든 순간을 담습니다.</p>
+  </div>
+
+  <div class="feed-grid reveal">
+    <div class="feed-item">
+      <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=400&q=80" alt="feed1"/>
+      <div class="feed-item-overlay"><span class="feed-overlay-icon">▶</span></div>
+    </div>
+    <div class="feed-item">
+      <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=400&q=80" alt="feed2"/>
+      <div class="feed-item-overlay"><span class="feed-overlay-icon">❤</span></div>
+    </div>
+    <div class="feed-item">
+      <img src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?w=400&q=80" alt="feed3"/>
+      <div class="feed-item-overlay"><span class="feed-overlay-icon">▶</span></div>
+    </div>
+    <div class="feed-item">
+      <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=400&q=80" alt="feed4"/>
+      <div class="feed-item-overlay"><span class="feed-overlay-icon">❤</span></div>
+    </div>
+  </div>
+
+  <a href="https://instagram.com/swingnomad" target="_blank" class="btn-instagram">
+    📸 인스타그램 팔로우하기
+  </a>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section id="newsletter">
+  <div class="newsletter-bg">SWING</div>
+  <div style="position: relative; z-index: 2;">
+    <span class="section-label">Newsletter</span>
+    <h2 class="section-title">신상품 & 골프 소식<br/>가장 먼저 받아보세요</h2>
+    <p class="section-desc">스윙노마드의 새로운 굿즈, 코스 리뷰, 이벤트를 뉴스레터로 전달해드려요.</p>
+    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+      <input
+        type="email"
+        class="newsletter-input"
+        placeholder="이메일 주소를 입력하세요"
+        id="emailInput"
+      />
+      <button type="submit" class="newsletter-btn">구독하기 →</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">SWING<span>NOMAD</span></a>
+      <p>골프를 사랑하는 노마드들을 위한<br/>라이프스타일 굿즈 브랜드.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/swingnomad" target="_blank" class="social-btn">📸</a>
+        <a href="https://instagram.com/gaya.countryclub" target="_blank" class="social-btn">⛳</a>
+      </div>
+    </div>
+
+    <div class="footer-links-group">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#products">Golf Map</a></li>
+        <li><a href="#products">Golf Passport</a></li>
+        <li><a href="#products">Coming Soon...</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links-group">
+      <h5>Info</h5>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#feed">Instagram</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links-group">
+      <h5>Policy</h5>
+      <ul>
+        <li><a href="#">배송 안내</a></li>
+        <li><a href="#">교환 / 환불</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 SWINGNOMAD. All rights reserved.</span>
+    <span>Made with ⛳ by @swingnomad</span>
+  </div>
+</footer>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">
+  <span id="toastIcon">✅</span>
+  <span id="toastMsg">카트에 담겼어요!</span>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // ─── Cart State ───
+  let cart = [];
+
+  // ─── Nav Scroll Effect ───
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // ─── Scroll Reveal ───
+  const revealElements = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealElements.forEach(el => observer.observe(el));
+
+  // ─── Cart Toggle ───
+  function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+  }
+
+  // ─── Add to Cart ───
+  function addToCart(name, price, btn) {
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      const imgs = {
+        'Golf Map': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=200&q=60',
+        'Golf Passport': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=200&q=60'
+      };
+      cart.push({ name, price, qty: 1, img: imgs[name] || '' });
+    }
+
+    updateCartUI();
+    showToast(`🛒 ${name} 담겼어요!`);
+
+    // Button feedback
+    const original = btn.innerHTML;
+    btn.innerHTML = '✅ 담겼어요!';
+    btn.style.background = '#4a7c42';
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.style.background = '';
+    }, 1500);
+  }
+
+  // ─── Update Cart UI ───
+  function updateCartUI() {
+    const count = cart.reduce((sum, i) => sum + i.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+
+    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+    document.getElementById('cartTotal').textContent =
+      '₩' + total.toLocaleString('ko-KR');
+
+    const itemsEl = document.getElementById('cartItems');
+    if (cart.length === 0) {
+      itemsEl.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty-icon">⛳</div>
+          <p>카트가 비어있어요.<br/>상품을 담아보세요!</p>
+        </div>`;
+      return;
+    }
+
+    itemsEl.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.img}" alt="${item.name}" />
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">₩${item.price.toLocaleString('ko-KR')}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="removeItem(${idx})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  // ─── Qty Change ───
+  function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    updateCartUI();
+  }
+
+  // ─── Remove Item ───
+  function removeItem(idx) {
+    cart.splice(idx, 1);
+    updateCartUI();
+  }
+
+  // ─── Checkout ───
+  function checkout() {
+    if (cart.length === 0) {
+      showToast('⛳ 먼저 상품을 담아주세요!');
+      return;
+    }
+    showToast('🏌️ 결제 페이지로 이동합니다!');
+    setTimeout(() => {
+      alert('결제 기능은 곧 오픈됩니다! 🎉\n인스타그램 DM으로 문의해주세요 @swingnomad');
+    }, 500);
+  }
+
+  // ─── Toast ───
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  // ─── Newsletter ───
+  function subscribeNewsletter(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    if (!email) return;
+    showToast(`📩 ${email} 구독 완료!`);
+    document.getElementById('emailInput').value = '';
+  }
+</script>
+
+</body>
+</html>
